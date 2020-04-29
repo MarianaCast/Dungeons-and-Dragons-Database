@@ -1,0 +1,115 @@
+CREATE TABLE `armor` (
+  `Armor_Class` varchar(45) DEFAULT NULL,
+  `Type` varchar(45) DEFAULT NULL,
+  `Weight` int DEFAULT NULL,
+  `Armor_ID` int NOT NULL AUTO_INCREMENT,
+  `Eq_ID_FK` int DEFAULT NULL,
+  PRIMARY KEY (`Armor_ID`),
+  UNIQUE KEY `idx_armor_Eq_Name_FK` (`Eq_ID_FK`),
+  KEY `Eq_Name_FK_idx` (`Eq_ID_FK`),
+  CONSTRAINT `Eq_ID_FK` FOREIGN KEY (`Eq_ID_FK`) REFERENCES `equipment` (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8195 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `background` (
+  `BG_NAME` varchar(80) DEFAULT NULL,
+  `Story` varchar(80) DEFAULT NULL,
+  `Job` varchar(80) DEFAULT NULL,
+  `Characteristics` varchar(80) DEFAULT NULL,
+  `BG_ID` int NOT NULL AUTO_INCREMENT,
+  `backgroundcol` varchar(45) DEFAULT NULL,
+  `C_Name_FK` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`BG_ID`),
+  KEY `C_Name_FK_idx` (`C_Name_FK`),
+  CONSTRAINT `C_Name_FK` FOREIGN KEY (`C_Name_FK`) REFERENCES `character` (`C_Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8359 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `character` (
+  `C_Name` varchar(80) NOT NULL,
+  `PI_ID_FK` int DEFAULT NULL,
+  PRIMARY KEY (`C_Name`),
+  KEY `PI_ID_FK_idx` (`PI_ID_FK`),
+  CONSTRAINT `PI_ID_FK` FOREIGN KEY (`PI_ID_FK`) REFERENCES `player` (`PI_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `class` (
+  `Class_ID` int NOT NULL AUTO_INCREMENT,
+  `Class_Name` varchar(80) DEFAULT NULL,
+  `Ability` varchar(45) DEFAULT NULL,
+  `HP` int DEFAULT NULL,
+  `Training` varchar(45) DEFAULT NULL,
+  `Subclass` varchar(45) DEFAULT NULL,
+  `Proficiency` int DEFAULT NULL,
+  `C_Name_FK2` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`Class_ID`),
+  KEY `C_Name_FK2_idx` (`C_Name_FK2`),
+  CONSTRAINT `C_Name_FK2` FOREIGN KEY (`C_Name_FK2`) REFERENCES `character` (`C_Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `equipment` (
+  `E_ID` int NOT NULL AUTO_INCREMENT,
+  `Eq_Name` varchar(80) DEFAULT NULL,
+  `Price` int DEFAULT NULL,
+  PRIMARY KEY (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8194 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `misc` (
+  `M_ID` int NOT NULL AUTO_INCREMENT,
+  `Usage` varchar(45) DEFAULT NULL,
+  `Weight` int DEFAULT NULL,
+  `Eq_ID_FK2` int DEFAULT NULL,
+  PRIMARY KEY (`M_ID`),
+  KEY `Eq_ID_FK2_idx` (`Eq_ID_FK2`),
+  CONSTRAINT `Eq_ID_FK2` FOREIGN KEY (`Eq_ID_FK2`) REFERENCES `equipment` (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `player` (
+  `PI_ID` int NOT NULL,
+  `PI_Name` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`PI_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `race` (
+  `Race_ID` int NOT NULL AUTO_INCREMENT,
+  `Race_Name` varchar(80) DEFAULT NULL,
+  `Size` int DEFAULT NULL,
+  `Language` varchar(45) DEFAULT NULL,
+  `Abilities` varchar(45) DEFAULT NULL,
+  `Traits` varchar(45) DEFAULT NULL,
+  `Sub_races` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`Race_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `spells` (
+  `Spell_ID` int NOT NULL AUTO_INCREMENT,
+  `Spell_Name` varchar(80) DEFAULT NULL,
+  `Type` varchar(45) DEFAULT NULL,
+  `Level` int DEFAULT NULL,
+  `Components` varchar(45) DEFAULT NULL,
+  `Range` int DEFAULT NULL,
+  `Duration` int DEFAULT NULL,
+  `Casting_Time` int DEFAULT NULL,
+  `Class_ID_FK` int DEFAULT NULL,
+  PRIMARY KEY (`Spell_ID`),
+  KEY `Class_ID_FK_idx` (`Class_ID_FK`),
+  CONSTRAINT `Class_ID_FK` FOREIGN KEY (`Class_ID_FK`) REFERENCES `class` (`Class_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `transportation` (
+  `T_ID` int NOT NULL AUTO_INCREMENT,
+  `Type` varchar(45) DEFAULT NULL,
+  `Speed` int DEFAULT NULL,
+  `Eq_ID_FK3` int DEFAULT NULL,
+  PRIMARY KEY (`T_ID`),
+  KEY `Eq_ID_FK3_idx` (`Eq_ID_FK3`),
+  CONSTRAINT `Eq_ID_FK3` FOREIGN KEY (`Eq_ID_FK3`) REFERENCES `equipment` (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8194 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `weapons` (
+  `W_ID` int NOT NULL AUTO_INCREMENT,
+  `Type` varchar(45) DEFAULT NULL,
+  `Range` int DEFAULT NULL,
+  `Eq_ID_FK4` int DEFAULT NULL,
+  PRIMARY KEY (`W_ID`),
+  KEY `Eq_ID_FK4_idx` (`Eq_ID_FK4`),
+  CONSTRAINT `Eq_ID_FK4` FOREIGN KEY (`Eq_ID_FK4`) REFERENCES `equipment` (`E_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8194 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
